@@ -1,10 +1,14 @@
 
 function getTweets()
 {
-	var years = ['1861','1900'];
-	for(i=0;i<years.length;i++)
-	{
-		loadTweetData(years[i]);	
+	var year = 1851;
+	var numYears = 48
+	var i = 0;
+	while(i < numYears)
+	{		
+		loadTweetData(year.toString());
+		i = i + 1;
+		year = year + 1;
 	}
 }
 
@@ -12,7 +16,7 @@ function getTweets()
 
 function loadTweetData(selectedYear) {
 	var year_dataset = [];
-	var filename = "data/" + selectedYear + "_popularity.csv";
+	var filename = "data/" + selectedYear + "-headlines.csv";
 	var random_tweets = []
     d3.csv(filename, function(data) {
 				data.forEach(function(d,i){							
@@ -20,6 +24,14 @@ function loadTweetData(selectedYear) {
 					year_dataset[i].classification = +d.classification;
 					year_dataset[i].year = +d.year;
     });	
+			var olNode = document.getElementById("add-events");			
+			
+			var liNode = document.createElement("li");
+			liNode.setAttribute("data-date","01/01/"+selectedYear);
+			if(selectedYear == "1851")
+			{
+				liNode.setAttribute("class","selected");
+			}
 		for(i=0;i<20;i++)
 		{
 			var ranVal = Math.floor(Math.random() * (year_dataset.length + 1));			
@@ -41,13 +53,18 @@ function loadTweetData(selectedYear) {
 			var p = document.createElement("p");
 			var textData2 = document.createTextNode(year_dataset[ranVal].main_headline);
 			p.appendChild(textData2);
-			//div2.appendChild(h4);
+			var aNode1 = document.createElement("a");
+			aNode1.setAttribute("href",year_dataset[ranVal].article_url);
+			var textData3 = document.createTextNode("nytimes.com");
+			aNode1.appendChild(textData3);			
 			div2.appendChild(p);
 			div1.appendChild(aNode);
+			div2.appendChild(aNode1);
 			div1.appendChild(div2);
-			var yearNode = document.getElementById(selectedYear);
-			yearNode.appendChild(document.createElement("br"))
-			yearNode.appendChild(div1);
-		}	
+			liNode.appendChild(div1);
+			liNode.appendChild(document.createElement("br"))
+		}
+			olNode.appendChild(liNode);
 	});		
 }
+			
