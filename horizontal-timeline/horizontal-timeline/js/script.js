@@ -68,7 +68,7 @@ function loadTweetData(selectedYear) {
 			var aNode1 = document.createElement("a");
 			aNode1.setAttribute("href",year_dataset[ranVal].article_url);
 			aNode1.setAttribute("style","color: turquoise");
-			var textData3 = document.createTextNode("(... Read More)");
+			var textData3 = document.createTextNode("... read more");
 			aNode1.appendChild(textData3);			
 			div2.appendChild(p);
 			div1.appendChild(aNode);
