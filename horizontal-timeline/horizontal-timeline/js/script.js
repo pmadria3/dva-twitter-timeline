@@ -39,7 +39,7 @@ function loadTweetData(selectedYear) {
 		if(year_dataset.length < 20){
 			noOfRecords = year_dataset.length;
 		}
-		for(i=0;i<20;i++)
+		for(i=0;i<noOfRecords;i++)
 		{
 			//console.log(year_dataset.length);
 			//console.log(selectedYear);
