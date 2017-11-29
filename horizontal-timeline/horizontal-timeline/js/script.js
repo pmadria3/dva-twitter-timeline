@@ -18,11 +18,14 @@ function loadTweetData(selectedYear) {
 	var year_dataset = [];
 	var filename = "data/" + selectedYear + "-headlines.csv";
 	var random_tweets = []
+	var i = 0;
     d3.csv(filename, function(data) {
-				data.forEach(function(d,i){							
+				data.forEach(function(d){	
+					if(+d.classification == 1){
 					year_dataset.push(d);
 					year_dataset[i].classification = +d.classification;
 					year_dataset[i].year = +d.year;
+					i=i+1;}
     });	
 			var olNode = document.getElementById("add-events");			
 			
@@ -32,9 +35,15 @@ function loadTweetData(selectedYear) {
 			{
 				liNode.setAttribute("class","selected");
 			}
+		var noOfRecords = 20;
+		if(year_dataset.length < 20){
+			noOfRecords = year_dataset.length;
+		}
 		for(i=0;i<20;i++)
 		{
-			var ranVal = Math.floor(Math.random() * (year_dataset.length + 1));			
+			//console.log(year_dataset.length);
+			//console.log(selectedYear);
+			var ranVal = Math.floor(Math.random() * (year_dataset.length));			
 			var div1 = document.createElement("div");
 			div1.setAttribute("class","media");
 			var aNode = document.createElement("a");
